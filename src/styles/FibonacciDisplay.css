@@ -1,0 +1,85 @@
+.fibonacci-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin-bottom: 24px;
+  transition: transform 0.3s ease;
+}
+
+.fibonacci-container:hover {
+  transform: translateY(-4px);
+}
+
+.fibonacci-container h2 {
+  color: #4361ee;
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.8rem;
+}
+
+.description {
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.fibonacci-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.fibonacci-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background-color: #4361ee;
+  color: white;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: popIn 0.5s ease forwards;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .fibonacci-container {
+    background-color: #2a2a2a;
+  }
+  
+  .fibonacci-container h2 {
+    color: #7b91ff;
+  }
+  
+  .description {
+    color: #bbbbbb;
+  }
+}
+
+@media (max-width: 768px) {
+  .fibonacci-numbers {
+    gap: 8px;
+  }
+  
+  .fibonacci-number {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+  }
+}

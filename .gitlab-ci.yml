@@ -1,0 +1,63 @@
+image: node:18-alpine
+
+stages:
+  - setup
+  - test
+  - build
+  - deploy
+
+variables:
+  # Use TLS https://docs.gitlab.com/ee/ci/docker/using_docker_images.html#tls-enabled
+  DOCKER_HOST: tcp://docker:2376
+  DOCKER_TLS_CERTDIR: "/certs"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .npm/
+
+install_dependencies:
+  stage: setup
+  script:
+    - npm ci --cache .npm --prefer-offline
+  artifacts:
+    paths:
+      - node_modules/
+
+lint:
+  stage: test
+  script:
+    - npm run lint
+  dependencies:
+    - install_dependencies
+
+# Add this when you have actual tests
+# test:
+#   stage: test
+#   script:
+#     - npm test
+#   dependencies:
+#     - install_dependencies
+
+build:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+  dependencies:
+    - install_dependencies
+
+# Add this when you want to deploy to a server
+# deploy:
+#   stage: deploy
+#   script:
+#     - echo "Deploying application..."
+#     # Add your deployment commands here
+#   dependencies:
+#     - build
+#   only:
+#     - main
+#     - master
